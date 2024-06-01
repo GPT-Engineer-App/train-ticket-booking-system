@@ -6,12 +6,15 @@ const Index = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
+  const [from, setFrom] = useState("");
   const [destination, setDestination] = useState("");
+  const [aadhar, setAadhar] = useState("");
+  const [paymentDetails, setPaymentDetails] = useState("");
   const [tickets, setTickets] = useState([]);
   const toast = useToast();
 
   const handleBooking = () => {
-    if (!name || !age || !gender || !destination) {
+    if (!name || !age || !gender || !from || !destination || !aadhar || !paymentDetails) {
       toast({
         title: "Error",
         description: "Please fill in all fields.",
@@ -22,12 +25,15 @@ const Index = () => {
       return;
     }
 
-    const newTicket = { name, age, gender, destination };
+    const newTicket = { name, age, gender, from, destination, aadhar, paymentDetails };
     setTickets([...tickets, newTicket]);
     setName("");
     setAge("");
     setGender("");
+    setFrom("");
     setDestination("");
+    setAadhar("");
+    setPaymentDetails("");
 
     toast({
       title: "Success",
@@ -52,7 +58,10 @@ const Index = () => {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </Select>
+        <Input placeholder="From" value={from} onChange={(e) => setFrom(e.target.value)} />
         <Input placeholder="Destination" value={destination} onChange={(e) => setDestination(e.target.value)} />
+        <Input placeholder="Aadhar Card Number" value={aadhar} onChange={(e) => setAadhar(e.target.value)} />
+        <Input placeholder="Payment Details" value={paymentDetails} onChange={(e) => setPaymentDetails(e.target.value)} />
         <Button colorScheme="teal" onClick={handleBooking}>
           Book Ticket
         </Button>
